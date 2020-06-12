@@ -1,2 +1,2 @@
-# it-studies
-Some excercises from my IT courses
+# Information Technology studies
+Some excercises from some of my IT courses.
