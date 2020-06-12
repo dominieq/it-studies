@@ -1,0 +1,12 @@
+TRUNCATE `products`;
+INSERT INTO `products` (`Name`, `Category`, `Price`) 
+VALUES ('Fairy Princess Bow', 'Weapon', '20'), 
+('Gnome Clothes', 'Armour', '55.55'),
+('Gnome Gloves', 'Armour', '11.35'),
+('Gnome Helmet', 'Armour', '14.5'),
+('Holy Staff', 'Weapon', '5'),
+('Izmel of the Faithful', 'Weapon', '10'),
+('ManBearPig Claw', 'Weapon', '100'),
+('Morning Star of David', 'Weapon', '50'),
+('Tinfoil Hat', 'Armour', '10'),
+('Underpants "Helmet"', 'Armour', '12');

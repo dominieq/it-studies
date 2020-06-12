@@ -1,0 +1,23 @@
+W s³owniku znajduje siê 34774 ró¿nych cech
+              precision    recall  f1-score   support
+
+           0       0.88      0.93      0.90       389
+           1       0.91      0.93      0.92       385
+           2       0.94      0.91      0.92       394
+           3       0.96      0.90      0.93       310
+
+   micro avg       0.92      0.92      0.92      1478
+   macro avg       0.92      0.92      0.92      1478
+weighted avg       0.92      0.92      0.92      1478
+
+W s³owniku znajduje siê 287718 ró¿nych cech
+              precision    recall  f1-score   support
+
+           0       0.87      0.94      0.91       389
+           1       0.92      0.94      0.93       385
+           2       0.95      0.90      0.92       394
+           3       0.97      0.90      0.93       310
+
+   micro avg       0.92      0.92      0.92      1478
+   macro avg       0.93      0.92      0.92      1478
+weighted avg       0.92      0.92      0.92      1478

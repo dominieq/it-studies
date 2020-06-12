@@ -1,0 +1,13 @@
+Given is a set of 18 countries for which we need to evaluate their scientific wealth. They are evaluated using 2 inputs and 2 outputs descibled below.
+
+Inputs
+i1: GDP (in 109 dollars);
+i2: active population (in millions);
+i3: R&D expenditure (in 106 dollars); 
+
+Outputs:
+o1: number of publications in the SCI (1993);
+o2: number of patents granted by the European Patent OfficeS(1993);
+
+Example from
+KLeuven K.U., KHBO, "THE SCIENTIFIC WEALTH OF EUROPEAN NATIONS: TAKING EFFECTIVENESS INTO ACCOUNT", Scientometrics, Vol. 42, 75–87, 1998

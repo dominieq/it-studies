@@ -1,0 +1,28 @@
+﻿(define (problem p1)
+	(:domain package-world)
+	(:objects a b c d e f g h)
+	(:init
+		(on-floor a)
+		(on-floor b)
+		(on-floor c)
+		(on-floor d)
+		(on-floor e)
+		(on-floor f)
+		(on-floor g)
+		(on-floor h)
+	
+	)
+	(:goal
+		(and
+			(on-floor h)
+			(on-top g h)
+			(on-top f g)
+			(on-top e f)
+			(on-top d e)
+			(on-top c d)
+			(on-top b c)
+			(on-top a b)
+			(clear a)
+		)
+	)
+)

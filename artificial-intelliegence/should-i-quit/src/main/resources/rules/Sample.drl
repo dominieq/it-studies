@@ -1,0 +1,502 @@
+package com.sample
+ 
+import com.sample.Message;
+import org.kie.api.runtime.KieRuntime
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList
+
+global JFrame frame
+
+rule "Q: You clicked on this, right?"
+    when
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(1), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Did your boss send you this link?"
+    when
+        Message(question == questions(1) && answer == "Yes")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(2), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Did your boss send you this?"
+    when
+        Message(question == questions(2) && answer == "Yes")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: Do you have a job offer?"
+    when
+        Message(question == questions(2) && answer == "No")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(3), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Do you really want it? with A: Yes"
+    when
+        Message(question == questions(3) &&answer == "Yes")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes, but I like where I work");
+        possibleAnswers.add("Yes, but scared");
+        possibleAnswers.add("Not sure");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(4), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Do you really want it? with A: Job hunt"
+    when
+        Message(question == questions(6) && answer == "Started a job hunt already? Good!")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes, but I like where I work");
+        possibleAnswers.add("Yes, but scared");
+        possibleAnswers.add("Not sure");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(4), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Really want to quit with no job in this economy?"
+    when
+        Message(question == questions(3) && answer == "No")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+        possibleAnswers.add("No");
+        possibleAnswers.add("Good point");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(5), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Start the job hunt until you have an offer"
+    when
+        Message(question == questions(5) && answer == "Good point")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Started a job hunt already? Good!");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(6), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: But..."
+    when
+        Message(question == questions(5) && answer == "No")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("My boss is a nightmare");
+        possibleAnswers.add("I must follow my...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(7), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Well something motivated you to apply? with A: Yes, but I like where I work"
+   when
+       Message(question == questions(4) && answer == "Yes, but I like where I work")
+   then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("My boss is a nightmare");
+        possibleAnswers.add("I need...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(8), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Well something motivated you to apply? with A: Yes, but scared"
+    when
+        Message(question == questions(4) && answer == "Yes, but scared")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("My boss is a nightmare");
+        possibleAnswers.add("I need...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(8), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Well something motivated you to apply? with A: more cons"
+    when
+        Message(question == questions(9) && answer == "More cons")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("My boss is a nightmare");
+        possibleAnswers.add("I need...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(8), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Make lists to see if there are..."
+    when
+        Message(question == questions(4) && answer == "Not sure")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("More cons");
+        possibleAnswers.add("More pros");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(9), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Make lists to see if there are..."
+    when
+        Message(question == questions(9) && answer == "More pros")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: I need..."
+    when
+        Message(question == questions(8) && answer == "I need...")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Mo' money!");
+        possibleAnswers.add("New opportunities");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(10), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: I must follow my..."
+    when
+        Message(question == questions(7) && answer == "I must follow my...")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Bliss");
+        possibleAnswers.add("Dream");
+        possibleAnswers.add("Significant other");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(11), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Do you really have to quit to do that? with A: Bliss"
+    when
+        Message(question == questions(11) && answer == "Bliss")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes, the dream takes time!");
+        possibleAnswers.add("Not really");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(15), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Do you really have to quit to do that? with A: Dream"
+    when
+        Message(question == questions(11) && answer == "Dream")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes, the dream takes time!");
+        possibleAnswers.add("Not really");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(15), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Do you really have to quit to do that? with A: Significant other"
+    when
+        Message(question == questions(11) && answer == "Significant other")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes, the dream takes time!");
+        possibleAnswers.add("Not really");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(15), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Can you change the situation? with A: New opportunities"
+    when
+        Message(question == questions(10) && answer == "New opportunities")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Maybe");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(12), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Can you change the situation? with A: Mo' money!"
+    when
+        Message(question == questions(10) && answer == "Mo' money!")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Maybe");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(12), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Can you change the situation? with A: But my boss is a nightmare"
+    when
+        Message(question == questions(8) && answer == "My boss is a nightmare")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Maybe");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(12), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Can you change the situation? with A: Motivation is my boss is a nightmare"
+    when
+        Message(question == questions(7) && answer == "My boss is a nightmare")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Maybe");
+        possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(12), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Can you change the situation?"
+    when
+        Message(question == questions(12) && answer == "No")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: Get thee to the boss's office"
+    when
+        Message(question == questions(12) && answer == "Maybe")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Alright, you went to boss's office and...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(13), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: What happened?"
+    when
+        Message(question == questions(13) && answer == "Alright, you went to boss's office and...")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("I got the runaround... Classic");
+		possibleAnswers.add("Counter offer");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(14), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: What happened?"
+    when
+        Message(question == questions(14) && answer == "I got the runaround... Classic")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: Did you get your must-haves?"
+    when
+        Message(question == questions(14) && answer == "Counter offer")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+		possibleAnswers.add("No");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(20), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Did you get your must-haves"
+    when
+        Message(question == questions(20) && answer == "No")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: Will you regret going more than staying?"
+    when
+        Message(question == questions(20) && answer == "Yes")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Yes");
+		possibleAnswers.add("No");
+		possibleAnswers.add("Maybe");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(21), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: You should stay! with A: Yes"
+    when
+        Message(question == questions(21) && answer == "Yes")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Wait! Really!?");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(18), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: You should stay! with A: Then"
+    when
+        Message(question == questions(17) && answer == "You won't believe what's next")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Wait! Really!?");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(18), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Will you regret going more than staying? with A: No"
+    when
+        Message(question == questions(21) && answer == "No")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "You should go [...] from Q: Will you regret going more than staying? with A: Maybe"
+    when
+        Message(question == questions(21) && answer == "Maybe")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: Stick it out [...] with A: Yes"
+    when
+        Message(question == questions(5) && answer == "Yes")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("You've waited some time and...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(16), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Stick it out [...] with A: Yes, the dream takes time!"
+    when
+        Message(question == questions(15) && answer == "Yes, the dream takes time!")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("You've waited some time and...");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(16), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Then with A: Not really"
+    when
+        Message(question == questions(15) && answer == "Not really")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("You won't believe what's next");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(17), possibleAnswers);
+		insert(message);
+end
+
+rule "Q: Then with A: Stick it out [...]"
+    when
+        Message(question == questions(16) && answer == "You've waited some time and...")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Come on, check out what's next");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(22), possibleAnswers);
+		insert(message);
+end
+
+rule "You should go [...] from Q: Then"
+    when
+        Message(question == questions(22) && answer == "Come on, check out what's next")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+rule "Q: But you did click on this [...]"
+    when
+        Message(question == questions(18) && answer == "Wait! Really!?")
+    then
+        ArrayList<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Well, we all know what you should do");
+        Message message = askQuestion(frame, kcontext.getKieRuntime(), questions(19), possibleAnswers);
+        insert(message);
+end
+
+rule "You should go [...] from Q: But you did click on this [...]"
+    when
+        Message(question == questions(19) && answer == "Well, we all know what you should do")
+    then
+        lastAnswer(frame, kcontext.getKieRuntime());
+end
+
+function String questions(int position) {
+    switch(position) {
+        case 1: return "You clicked on this, right?";
+        case 2: return "Did your boss send you this link?";
+        case 3: return "Do you have a job offer?";
+        case 4: return "Do you really want it?";
+        case 5: return "Really want to quit with no job, in this economy?";
+        case 6: return "Start the job hunt until you have an offer";
+        case 7: return "But...";
+        case 8: return "Well something motivated you to apply";
+        case 9: return "Make lists to see if there are...";
+        case 10: return "I need...";
+        case 11: return "I must follow my...";
+        case 12: return "Can you change the situation?";
+        case 13: return "Get thee to the boss's office";
+        case 14: return "What happened?";
+        case 15: return "Do you really have to quit to do that?";
+        case 16: return "Stick it out until you have an offer or six months of savings";
+        case 17: return "Then";
+        case 18: return "You should stay!";
+        case 19: return "But you did click on this, so maybe...";
+        case 20: return "Did you get your must-haves?";
+        case 21: return "Will you regret going more than staying?";
+        case 22: return "Then";
+        default: return "Unknown question";
+    }
+}
+
+function void lastAnswer(JFrame frame, KieRuntime krt) {
+        final JPanel panel = new JPanel();
+        String text="You should go! Good luck!";
+        panel.add(new JLabel(text));
+        JOptionPane.showMessageDialog(frame, panel);
+}
+
+function Message askQuestion(JFrame frame, KieRuntime krt, String question, ArrayList answers) {
+
+    class Listener implements ItemListener {
+    
+        private Message message;
+        private String chosen;
+
+        public Listener (Message message, String chosen) {
+            this.message = message;
+            this.chosen = chosen;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                message.setAnswer(this.chosen);
+            }
+        }
+    }
+    
+	final JPanel panel = new JPanel(new GridLayout (0,1));
+    Message message = new Message(question, (String) answers.get(0));
+    ArrayList<JRadioButton> buttonArrayList = new ArrayList<>();
+    ButtonGroup buttonGroup = new ButtonGroup();
+
+    panel.add(new JLabel(question));    
+
+    for (int i=0; i < answers.size(); i++) {
+        String tempText = (String) answers.get(i);
+        JRadioButton tempButton= new JRadioButton(tempText);
+        Listener tempListener = new Listener(message, tempText);
+        tempButton.addItemListener(tempListener);
+        buttonArrayList.add(tempButton);
+    }
+    
+    buttonArrayList.get(0).setSelected(true);
+    message.setAnswer((String) answers.get(0));
+
+    for (int i=0;i<buttonArrayList.size();i++){
+        buttonGroup.add(buttonArrayList.get(i));
+        panel.add(buttonArrayList.get(i));
+	}
+
+    JOptionPane.showMessageDialog(frame, panel);
+     
+    return message;
+}

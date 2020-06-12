@@ -1,0 +1,19 @@
+Aby zainstalować pycrfsuite jupyter notebook i inne wymagane zależności w VirtualEnv, otwórz terminal i wpisz nastepujące komendy:
+
+virtualenv lab9
+source ./lab9/bin/activate
+pip3 install jupyter
+pip3 install ipython
+pip3 install ipykernel
+pip3 install nltk
+pip3 install spacy
+pip3 install python-crfsuite
+alias ipy="python3 -c 'import IPython;
+IPython.terminal.ipapp.launch_new_instance()'"
+ipy kernel install --user --name=lab9
+python3 -m spacy download en_core_web_md
+python3 -c 'import nltk;nltk.download("all")'
+
+
+następnie możesz uruchomić Jupyter notebook poleceniem: jupyter-notebook
+Pamiętaj, aby po uruchomieniu Jupytera wybrać odpowiedni Kernel (ten który właśnie stworzyliśmy - lab9)

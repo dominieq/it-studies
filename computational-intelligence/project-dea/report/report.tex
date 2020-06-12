@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{english}
+
+\title{Elements of Computational Intelligence \\ Data Envelopment Analysis \\ Case study report}
+\author{Dominik Szmyt 132326, Angelika Szyszka 132328 \\ Monday, 11:45}
+\date{}
+
+\usepackage[margin=1.25in]{geometry}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{ulem}
+\usepackage{contour}
+\usepackage{tabu}
+\usepackage{listings}
+
+\setlist[description]{labelwidth=18.61502pt, labelsep=0pt, itemindent=0pt}
+\newcommand{\myDot}{\color{blue}{>>}}
+
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+\newcommand{\myuline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+
+\tabulinesep = 3mm
+%
+%
+\begin{document}
+\maketitle
+\section{Analyzed problem}
+Given is a set of 18 countries for which we need to evaluate their scientific wealth. They are evaluated using 3 inputs and 2 outputs descibled below:
+\newline \newline
+\textbf{Inputs:}
+\begin{description}
+	\item[i1] - GDP (in 109 dollars)
+	\item[i2] - active population (in millions)
+	\item[i3] - R\&D expenditure (in 106 dollars) 
+\end{description}
+\textbf{Outputs:}
+\begin{description}
+	\item[o1] - number of publications in the SCI (1993)
+	\item[o2] - number of patents granted by the European Patent OfficeS(1993)
+\end{description}
+%
+%
+\section{Chosen model}
+The problem stated above has been solved using Charnes, Cooper and Rhones (CCR) Data Envelopment Analysis model.
+%
+\pagebreak
+%
+\section{Efficiency scores}
+Efficiency scores obtained by model for all countries are presented in the table below.
+\begin{center}
+	\begin{tabular}{| m{6cm} | m{6cm} |}
+	\hline
+	\textbf{Country} & \textbf{Efficiency} \\
+	\hline \hline
+	Austria & 0.9801283\\
+	\hline
+	Belgium & 0.3644829\\
+	\hline
+	Denmark & 0.4627883\\
+	\hline
+	Finland & 0.3308322\\
+	\hline
+	France & 0.5301964\\
+	\hline
+	Germany & 1\\
+	\hline
+	Ireland & 0.458212\\
+	\hline
+	Italy & 0.3952348\\
+	\hline
+	Netherlands & 0.9138391\\
+	\hline
+	Norway & 0.2287916\\
+	\hline
+	Spain & 0.08821843\\
+	\hline
+	Sweden & 0.4305553\\
+	\hline
+	Switzerland & 1\\
+	\hline
+	U. Kingdom & 0.3912678\\
+	\hline
+	Australia & 0.1388172\\
+	\hline
+	Canada & 0.1381905\\
+	\hline
+	Japan & 0.3504877\\
+	\hline
+	USA & 0.2752869\\
+	\hline
+	\end{tabular}
+\end{center}
+%
+%
+\section{Efficient units}
+There are 2 countries that perform efficiently:
+\begin{itemize}
+	\item Germany
+	\item Switzerland
+\end{itemize}
+%
+\pagebreak
+%
+\section{Inefficient units}
+There are 16 inefficient countries. To make them efficient they need to reduce their inputs by the following values:
+\begin{center}
+	\begin{tabular}{| m{3cm} | m{3cm} | m{3cm} | m{3cm} |}
+	\hline
+	\textbf{Country} & \textbf{GDP} & \textbf{Population} & \textbf{R\&D} \\
+	\hline \hline
+	Austria & 3.656389 & 77.10211 & 39.24657 \\
+	\hline
+	Belgium & 139.1782 & 2692.686 & 2026.664 \\
+	\hline
+	Denmark & 76.28406 & 1559.525 & 1185.089 \\
+	\hline
+	Finland & 72.9393 & 1674.258 & 1519.68 \\
+	\hline
+	France & 622.02 & 11925.97 & 13580.61 \\
+	\hline
+	Ireland & 27.0894 & 744.9585 & 161.9946 \\
+	\hline
+	Italy & 740.2326 & 14036.6 & 8581.618 \\
+	\hline
+	Netherlands & 27.5715 & 604.0744 & 480.8642 \\
+	\hline
+	Norway & 87.14655 & 1658.869 & 1504.628 \\
+	\hline
+	Spain & 433.0962 & 14315.88 & 3745.599 \\
+	\hline
+	Sweden & 139.514 & 2429.251 & 3944.543 \\
+	\hline
+	U. Kingdom & 638.5601 & 17362.87 & 12871.64 \\
+	\hline
+	Australia & 253.1877 & 7578.409 & 3701.364 \\
+	\hline
+	Canada & 486.0605 & 12845.27 & 7414.147 \\
+	\hline
+	Japan & 2375.916 & 43160.09 & 67253.75 \\
+	\hline
+	USA & 4314.217 & 96005.65 & 100919.9 \\
+	\hline
+	\end{tabular}
+\end{center}
+\end{document}

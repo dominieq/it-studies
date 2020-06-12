@@ -1,0 +1,11 @@
+li { list-style-type: square }
+#price { color: red; font-weight: bold }
+.intro { font-style: italic }
+td > img { border-color: blue; border-style: solid }
+td > img:hover { border-color: red }
+h1 + h2 { letter-spacing: 5px }
+[colspan = "2"] { font-size: small }
+p~p { color: grey }
+body { background-image: url(books.png); background-repeat: repeat-y }
+h1 { color: blue }
+h1 { color: green }

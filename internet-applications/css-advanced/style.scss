@@ -1,0 +1,202 @@
+$font_size: 16px;
+$special_height: 80px;
+$special_color: rgb(213, 228, 188);
+
+* {
+    box-sizing: border-box;
+    // padding and border are included in the width and height
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    position: relative;
+
+    body{
+        height: 100%;
+        margin: 0;
+        font-size: $font_size;
+
+        .wrapper {
+            min-height: 100%;
+            margin-bottom: -1 * $special_height
+        }
+
+        header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 60px;
+                height: 60px;
+                margin-right: 0;
+            }
+    
+            .title {
+                font-size: 2 * $font_size;
+                margin-left: 0;
+                // margin: 15px; 
+            }
+
+            .hamburger {
+                margin-top: -20px;
+                margin-left: auto;
+                background-color: $special_color;
+                padding: 10px;
+                border-radius: 15px;
+                border-color: black;
+                border-style: solid;
+                border-width: 2px;
+                div {
+                    width: 30px;
+                    height: 2px;
+                    background-color: black;
+                    margin: 6px 0;
+                }
+            }
+
+            .menu_panel {
+                margin-top: -20px;
+                margin-left: auto;
+
+                ul{
+                    // no markers
+                    list-style: none;
+                }
+
+                li {
+                    display: inline-block;
+                    // elements can sit next to each other 
+                    // can set width/height and top/bottom margins/paddings are respected
+                    padding: 10px;
+                    font-size: 1.25 * $font_size;
+                }
+            }
+        }
+        
+        @media only screen and (min-width: 1024px) {
+            .hamburger {
+                display: none;
+            }
+
+            .text_container {
+                width: (85% / 3)
+            }
+        }
+        
+        @media only screen and (min-width: 600px) and (max-width: 1023px) {
+            .hamburger {
+                display: inline-block;
+            }
+
+            .menu_panel {
+                display: none;
+            }
+
+            #one {
+                width: 100%;
+            }
+
+            #two {
+                width: 45%;
+            }
+
+            #three {
+                width: 45%;
+            }
+        } 
+        
+        @media only screen and (max-width: 599px) {
+            .title {
+                display: none;
+            }
+
+            .hamburger {
+                display: inline-block;
+            }
+
+            .menu_panel {
+                display: none;
+            }
+
+            .text_container {
+                width: 100%;
+            }
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2.5%;
+    
+            .text_container {
+                margin: 2.5%;
+                border-width: 1.5px;
+                border-color: black; 
+                border-style: solid;
+                text-align: justify; 
+                background-color: $special_color;
+
+                .headline {
+                    font-family: Helvetica;
+                    font-size: 1.5 * $font_size;
+                    position: relative;
+                    float: right;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    padding-left: 40px;
+                    padding-right: 40px;
+                    margin-bottom: 20px;
+                    border-bottom-color: black;
+                    border-bottom-style: solid;
+                    border-bottom-width: 1.5px;
+                    border-left-color: black;
+                    border-left-style: solid;
+                    border-left-width: 1.5px;                    
+                }
+                
+                .text {
+                    margin: 20px;
+                    clear: both;
+                    // do not allow floating elements on both sides
+                }
+
+                #Lorem {
+                    background-color: aqua;
+                }
+
+                #Ipsum {
+                    background-color: coral;
+                }
+
+                #Dolor {
+                    background-color: lightpink;
+                }
+            }
+        }
+
+        // Link do stopki: https://css-tricks.com/couple-takes-sticky-footer/
+        .footer {
+            height: $special_height;
+        }
+        .push {
+            height: $special_height;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            background-color: $special_color;
+            border-style: solid;
+            border-width: 1px 0 0 0;
+
+            .designer_name {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+
+

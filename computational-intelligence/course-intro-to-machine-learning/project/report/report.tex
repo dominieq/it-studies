@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+
+\title{Autoenkoder do kolorowania obrazów czarno-białych}
+\author{Dominik Szmyt 132326}
+\date{2020-02-08}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage[margin=1.25in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{tabu}
+
+\tabulinesep = 3mm
+
+\begin{document}
+\maketitle
+\section{Opis problemu}
+Głównym problemem jest stworzenie autoenkodera, który po nauczeniu, będzie w stanie pokolorować czarno-biały obraz.
+
+\section{Sposób rozwiązania problemu}
+Korzystam z danych ze zbiory cifar101. Zbiór treningowy i testowy przekształcam do odcieni szarości. Następnie tworzę autoenkoder.
+
+Enkoder składa się z trzech warstw konwolucyjnych o rozmiarach filtrów 64, 128 i 256. Dekoder składa się z czterech transponowanych warstw konwolucyjnych o rozmiarach filtrów odpowiednio 256, 128 i 64. Ostatni rozmiar filtra jest równy ilości kanałów w zbiorze treningowym
+
+Użyta przeze mnie funkcja straty to mean squared error.
+\section{Analiza osiągniętych wyników}
+Sieć po trzech epokach nauczyła się kolorować niektóre elementy na brązowo. Jest to kolor najbliższy wielu innym barwom stąd właśnie pojawił się on tak szybko.
+
+\end{document}
